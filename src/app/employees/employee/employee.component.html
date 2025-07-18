@@ -1,0 +1,52 @@
+<!-- Add+ button here html -->
+   <div class="header-row"> 
+    <h3 id="headerId">Employees</h3>  
+    <div *ngIf="!showForm" class="add-button-wrapper">
+  <button (click)="toggleForm()">Add+</button>
+  </div>
+  </div>
+
+
+    <!-- Employee Form Html -->
+     <form *ngIf="showForm" (ngSubmit)="save()" class="formId">
+        <h3 id="createId">Create Item</h3>
+
+        <label>Name</label>
+        <input type="text" id="nameId" [(ngModel)]="employee.name" name="name" (input)="onInputChange()"  required />
+        <label>Age</label>
+        <input type="number" id="ageId" [(ngModel)]="employee.age" name="age" (input)="onInputChange()"  required />
+        <label>Salary</label>
+        <input type="number" id="salaryId" [(ngModel)]="employee.salary" name="salary" (input)="onInputChange()" required />
+
+            <!-- Validation Message -->
+             <p *ngIf="showError">Please fill out all the fields before submitting.</p>
+
+        <div id="buttonId">
+            <button type="submit">{{isEdit ? 'Update' : 'Create'}}</button>
+            <button type="button" (click)="reset()">Clear</button>
+        </div>
+    </form>
+
+
+    <!-- Employee Table details -->
+    <table *ngIf="employees.length>0 && !showForm" id="employeeDetails">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Salary</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let emp of employees ">
+                <td>{{emp.name}}</td>
+                <td>{{emp.age}}</td>
+                <td>{{emp.salary}}</td>
+                <td>
+                    <button (click)="edit(emp)">Edit</button>
+                    <button (click)="delete(emp.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
